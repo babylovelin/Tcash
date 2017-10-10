@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Tcash</title>
+    <link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+
+</head>
+<body>
+<div class="layui-fluid" style="padding: 0">
+    <div style="width: 100%;background: black">
+        <ul class="layui-nav">
+            <li class="layui-nav-item">
+                <a href="">TCASH</a>
+            </li>
+            <!--<li class="layui-nav-item">-->
+                <!--<a href="">资金</a>-->
+            <!--</li>-->
+            <li class="layui-nav-item" style="float: right">
+                <a href="javascript:;"><img src="http://t.cn/RCzsdCq" class="layui-nav-img">15533545886</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">修改信息</a></dd>
+                    <dd><a href="javascript:;">安全管理</a></dd>
+                    <dd><a href="/index.php?m=home&c=login&a=logout">退了</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-xs12 layui-col-sm10 layui-col-sm-offset1 layui-col-md10 layui-col-md-offset1">
+            <div class="layui-tab layui-tab-brief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this" style="width: 35%">法币</li>
+                    <li style="width: 40%">数字货币</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="40%">
+                                <col width="40%">
+                                <col>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>法币</th>
+                                <th>数量</th>
+                                <th>详情</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>RMB</td>
+                                <td>100000</td>
+                                <td><button class="layui-btn layui-btn-radius layui-btn-mini xqbtn">点击查看详情</button></td>
+                            </tr>
+                            <tr>
+                                <td>dollar</td>
+                                <td>5000</td>
+                                <td><button class="layui-btn layui-btn-radius layui-btn-mini xqbtn">点击查看详情</button></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="layui-tab-item">
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="40%">
+                                <col width="40%">
+                                <col>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>数字货币</th>
+                                <th>数量</th>
+                                <th>详情</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>BTC</td>
+                                <td>10</td>
+                                <td><button class="layui-btn layui-btn-radius layui-btn-mini xqbtn">点击查看详情</button></td>
+                            </tr>
+                            <tr>
+                                <td>LTC</td>
+                                <td>500</td>
+                                <td><button class="layui-btn layui-btn-radius layui-btn-mini xqbtn">点击查看详情</button></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div><input type="email" name="useremail" id="useremail"> <button type="button" onclick="test()">验证邮箱</button></div>
+<script>
+    function test() {
+        var useremail=$("#useremail").val();
+        $.ajax({
+            type: "POST",
+            url: "index.php?m=Home&c=Register&a=sendCheckEmail",
+            data: {account:$("#account").html()},
+            success: function(data){
+//                if(data['status']==1){
+//                    window.location.href='/index.php?m=home&c=Login&a=login';
+//                }
+
+            }
+        });
+    }
+</script>
+<script src="__PUBLIC__/layui/layui.all.js"></script>
+<script>
+    //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+    //详情按钮
+    $(".xqbtn").click(function () {
+        layui.use('layer', function(){
+            var layer = layui.layer;
+            $.post('index.php?m=home&c=index&a=getCoinInfo', {}, function(str){
+                layer.open({
+                    skin: 'demo-class',
+                    type: 1,
+                    content: "<table class=\"layui-table\">\n" +
+                    "                                <colgroup>\n" +
+                    "                                    <col width=\"150\">\n" +
+                    "                                    <col width=\"150\">\n" +
+                    "                                    <col>\n" +
+                    "                                </colgroup>\n" +
+                    "                                <thead>\n" +
+                    "                                <tr>\n" +
+                    "                                    <th>钱包</th>\n" +
+                    "                                    <th>数量</th>\n" +
+                    "                                </tr>\n" +
+                    "                                </thead>\n" +
+                    "                                <tbody>\n" +
+                    "                                <tr>\n" +
+                    "                                    <td>BTC</td>\n" +
+                    "                                    <td>10</td>\n" +
+                    "                                </tr>\n" +
+                    "                                <tr>\n" +
+                    "                                    <td>LTC</td>\n" +
+                    "                                    <td>500</td>\n" +
+                    "                                </tr>\n" +
+                    "                                </tbody>\n" +
+                    "                            </table>" //注意，如果str是object，那么需要字符拼接。
+                });
+            });
+        });
+    });
+    //退出登录
+    function logout(){
+        $.ajax({
+            type: "POST",
+            url: "index.php?m=home&c=Login&a=deleteuser",
+            data: {account:$("#account").html()},
+            success: function(data){
+                if(data['status']==1){
+                    window.location.href='/index.php?m=home&c=Log&a=login';
+                }
+
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/Public/layui/css/layui.css">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+<div style="margin-bottom: 5px;">
+        <h1 style="font-size: 25px;text-align: center">Tcash后台管理</h1>
+    <!-- 示例-970 -->
+    <!--<ins class="adsbygoogle" style="display:inline-block;width:970px;height:90px" data-ad-client="ca-pub-6111334333458862" data-ad-slot="3820120620"></ins>-->
+
+</div>
+
+
+<div style="width: 1500px;margin: 0 auto">
+    <div class="layui-btn-group demoTable">
+        <button class="layui-btn">添加新数据</button>
+    </div>
+<table class="layui-table layui-main" lay-data="{width: 1500, height:'full-100', url:'http://tcash.gcan.top/admin.php?m=index&c=index&a=showdata', page:true, id:'idTest'}" lay-filter="demo">
+    <thead>
+    <tr>
+        <th lay-data="{checkbox:true, fixed: true}"></th>
+        <th lay-data="{field:'id', width:180, sort: true, fixed: true}">总资产</th>
+        <th lay-data="{field:'username', width:180}">日期</th>
+        <th lay-data="{field:'sex', width:180, sort: true}">币种</th>
+        <th lay-data="{field:'city', width:180}">数量</th>
+        <th lay-data="{field:'sign', width:300}">价格</th>
+        <th lay-data="{field:'experience', width:300, sort: true}">汇总</th>
+        <th lay-data="{fixed: 'right', width:160, align:'center', toolbar: '#barDemo'}"></th>
+    </tr>
+    </thead>
+</table>
+</div>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-mini" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+</script>
+
+
+<script src="/Public/layui/layui.all.js"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+        //监听表格复选框选择
+//        table.on('checkbox(demo)', function(obj){
+//            console.log(obj)
+//        });
+        //监听工具条
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'detail'){
+                layer.msg('ID：'+ data.id + ' 的查看操作');
+            } else if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                layer.alert('编辑行：<br>'+ JSON.stringify(data))
+            }
+        });
+
+//        var $ = layui.$, active = {
+//            getCheckData: function(){ //获取选中数据
+//                var checkStatus = table.checkStatus('idTest')
+//                        ,data = checkStatus.data;
+//                layer.alert(JSON.stringify(data));
+//            }
+//            ,getCheckLength: function(){ //获取选中数目
+//                var checkStatus = table.checkStatus('idTest')
+//                        ,data = checkStatus.data;
+//                layer.msg('选中了：'+ data.length + ' 个');
+//            }
+//            ,isAll: function(){ //验证是否全选
+//                var checkStatus = table.checkStatus('idTest');
+//                layer.msg(checkStatus.isAll ? '全选': '未全选')
+//            }
+//        };
+
+        $('.demoTable .layui-btn').on('click', function(){
+            alert(123);
+        });
+    });
+</script>
+</body>
+</html>
