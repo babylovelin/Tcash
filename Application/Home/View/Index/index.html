@@ -5,173 +5,134 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Tcash</title>
     <link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css">
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <!--<script src="https://cdn.bootcss.com/jquery/3.2.0/jquery.js"></script>-->
+    <script src="https://cdn.bootcss.com/jquery/1.8.0/jquery-1.8.0.js"></script>
+    <style>
+        p{
+            text-align: center;
+            padding-bottom: 5px;
+        }
+    </style>
 
 </head>
 <body>
-<div class="layui-fluid" style="padding: 0">
-    <div style="width: 100%;background: black">
-        <ul class="layui-nav">
-            <li class="layui-nav-item">
-                <a href="">TCASH</a>
-            </li>
-            <!--<li class="layui-nav-item">-->
-                <!--<a href="">资金</a>-->
-            <!--</li>-->
-            <li class="layui-nav-item" style="float: right">
-                <a href="javascript:;"><img src="http://t.cn/RCzsdCq" class="layui-nav-img">15533545886</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="javascript:;">修改信息</a></dd>
-                    <dd><a href="javascript:;">安全管理</a></dd>
-                    <dd><a href="/index.php?m=home&c=login&a=logout">退了</a></dd>
-                </dl>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="layui-container">
-    <div class="layui-row">
-        <div class="layui-col-xs12 layui-col-sm10 layui-col-sm-offset1 layui-col-md10 layui-col-md-offset1">
-            <div class="layui-tab layui-tab-brief">
-                <ul class="layui-tab-title">
-                    <li class="layui-this" style="width: 35%">法币</li>
-                    <li style="width: 40%">数字货币</li>
-                </ul>
-                <div class="layui-tab-content">
-                    <div class="layui-tab-item layui-show">
-                        <table class="layui-table">
-                            <colgroup>
-                                <col width="40%">
-                                <col width="40%">
-                                <col>
-                            </colgroup>
-                            <thead>
-                            <tr>
-                                <th>法币</th>
-                                <th>数量</th>
-                                <th>详情</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>RMB</td>
-                                <td>100000</td>
-                                <td><button class="layui-btn layui-btn-radius layui-btn-mini xqbtn">点击查看详情</button></td>
-                            </tr>
-                            <tr>
-                                <td>dollar</td>
-                                <td>5000</td>
-                                <td><button class="layui-btn layui-btn-radius layui-btn-mini xqbtn">点击查看详情</button></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="layui-tab-item">
-                        <table class="layui-table">
-                            <colgroup>
-                                <col width="40%">
-                                <col width="40%">
-                                <col>
-                            </colgroup>
-                            <thead>
-                            <tr>
-                                <th>数字货币</th>
-                                <th>数量</th>
-                                <th>详情</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>BTC</td>
-                                <td>10</td>
-                                <td><button class="layui-btn layui-btn-radius layui-btn-mini xqbtn">点击查看详情</button></td>
-                            </tr>
-                            <tr>
-                                <td>LTC</td>
-                                <td>500</td>
-                                <td><button class="layui-btn layui-btn-radius layui-btn-mini xqbtn">点击查看详情</button></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div id="main" style="width:100%;"></div>
+<p>Tcash基金运行第 <b>{$data.runningtime}</b> 天</p>
+<p id="date">2017-10-12</p>
+<p>总收益 <b id="rateOfReturn"></b>%</p>
+<p><b id="cnyReturn">200000.00(CNY)</b>(CNY)</p>
+<div style="width: 60px;margin: 0 auto"><button class="layui-btn layui-btn-radius layui-btn-small" style="margin-left: -5px" onclick="toHistory() "{
 
-<div><input type="email" name="useremail" id="useremail"> <button type="button" onclick="test()">验证邮箱</button></div>
+}">历史收益</button></div>
+
+<script src="__PUBLIC__/js/echarts.js"></script>
 <script>
-    function test() {
-        var useremail=$("#useremail").val();
-        $.ajax({
-            type: "POST",
-            url: "index.php?m=Home&c=Register&a=sendCheckEmail",
-            data: {account:$("#account").html()},
-            success: function(data){
-//                if(data['status']==1){
-//                    window.location.href='/index.php?m=home&c=Login&a=login';
-//                }
-
-            }
-        });
+    function toHistory() {
+        window.location="/index.php?m=admin&c=ShowData";
     }
-</script>
-<script src="__PUBLIC__/layui/layui.all.js"></script>
-<script>
-    //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
-    layui.use('element', function(){
-        var element = layui.element;
-    });
-    //详情按钮
-    $(".xqbtn").click(function () {
-        layui.use('layer', function(){
-            var layer = layui.layer;
-            $.post('index.php?m=home&c=index&a=getCoinInfo', {}, function(str){
-                layer.open({
-                    skin: 'demo-class',
-                    type: 1,
-                    content: "<table class=\"layui-table\">\n" +
-                    "                                <colgroup>\n" +
-                    "                                    <col width=\"150\">\n" +
-                    "                                    <col width=\"150\">\n" +
-                    "                                    <col>\n" +
-                    "                                </colgroup>\n" +
-                    "                                <thead>\n" +
-                    "                                <tr>\n" +
-                    "                                    <th>钱包</th>\n" +
-                    "                                    <th>数量</th>\n" +
-                    "                                </tr>\n" +
-                    "                                </thead>\n" +
-                    "                                <tbody>\n" +
-                    "                                <tr>\n" +
-                    "                                    <td>BTC</td>\n" +
-                    "                                    <td>10</td>\n" +
-                    "                                </tr>\n" +
-                    "                                <tr>\n" +
-                    "                                    <td>LTC</td>\n" +
-                    "                                    <td>500</td>\n" +
-                    "                                </tr>\n" +
-                    "                                </tbody>\n" +
-                    "                            </table>" //注意，如果str是object，那么需要字符拼接。
+    var width=parseInt(document.body.clientWidth);
+    if(width<=320){
+        document.getElementById("main").style.height=400+"px";
+    }
+    if(width>320&&width<=375){
+        document.getElementById("main").style.height=450+"px";
+    }
+    if(width>375&&width<=414){
+        document.getElementById("main").style.height=500+"px";
+    }
+    if(width>414){
+        document.getElementById("main").style.height=600+"px";
+    }
+    var myChart = echarts.init(document.getElementById('main'));
+    //将后台数据的字符串转对象
+    var mydata=JSON.parse('<php>echo json_encode($data);</php>');
+    //货币的种类
+    var currency=["BTC","BNB","USDT","CNY","ETH"];
+    //每一种货币的价格
+    var price=[mydata.btc_price,mydata.bnb_price,mydata.usdt_price,mydata.cny_price,mydata.eth_price];
+    //每一种货币的数量
+    var number=[mydata.btc_num,mydata.bnb_num,mydata.usdt_num,mydata.cny_num,mydata.eth_num];
+    //每一种货币折算为人民币
+    var toCNY=[];
+    for(var i=0;i<price.length;i++){
+        toCNY[i]=price[i]*number[i];
+    }
+    //所有货币的总值
+    var assets0=price[0]*number[0]+price[1]*number[1]+price[2]*number[2]+price[3]*number[3]+price[4]*number[4];
+    var assets="总资产："+assets0;
+    //收益CNY  总资产-成本
+    var cnyReturn=assets0-mydata.principal;
+    //收益率  （总资产-本金）/本金
+    var rateOfReturn=(assets0-mydata.principal)/mydata.principal;
+    //获取今天的日期
+    var today=new Date();
+    var year=today.getFullYear();
+    var month=today.getMonth()+1;
+    var day=today.getDate();
+    var date=year+"-"+month+"-"+day;
+    //显示今天的日期
+    document.getElementById("date").innerHTML=date;
+    //显示收益
+    document.getElementById("rateOfReturn").innerHTML=rateOfReturn;
+    document.getElementById("cnyReturn").innerHTML=cnyReturn;
+
+    option = {
+        title : {
+            text: 'Tcash基金',
+            subtext:assets,
+            textStyle:{
+                fontSize:25,
+            },
+            padding:[5,10,5,10],
+            top:'5%',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+//            orient: 'vertical',
+            bottom:20,
+            data: ['BTC','CNY','BNB','USDT'],
+            formatter:function (name) {
+                var index=0;
+                currency.forEach(function (value,i) {
+                    if(value == name){
+                        index = i;
+                    }
                 });
-            });
-        });
-    });
-    //退出登录
-    function logout(){
-        $.ajax({
-            type: "POST",
-            url: "index.php?m=home&c=Login&a=deleteuser",
-            data: {account:$("#account").html()},
-            success: function(data){
-                if(data['status']==1){
-                    window.location.href='/index.php?m=home&c=Log&a=login';
-                }
+                return name+"  "+number[index];
 
             }
-        });
-    }
+
+
+        },
+        series:[
+            {
+                name: '资产情况',
+                type: 'pie',
+                radius : '55%',
+                center: ['50%', '47%'],
+                data:[
+                    {value:toCNY[0], name:currency[0]},
+                    {value:toCNY[1], name:currency[1]},
+                    {value:toCNY[2], name:currency[2]},
+                    {value:toCNY[3], name:currency[3]},
+                    {value:toCNY[4], name:currency[4]}
+                ],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    myChart.setOption(option);
+    window.onresize = myChart.resize;
 </script>
 </body>
 </html>

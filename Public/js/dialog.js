@@ -14,7 +14,7 @@ var dialog = {
             content : message,
             icon : 1,
             yes : function(){
-                location.href=url;
+                window.location.href=url;
             },
         });
     },

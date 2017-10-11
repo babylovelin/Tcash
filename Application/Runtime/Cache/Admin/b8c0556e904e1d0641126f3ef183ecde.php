@@ -27,7 +27,19 @@
     <div class="layui-form-item">
         <label class="layui-form-label">日期</label>
         <div class="layui-input-block">
-            <input type="text" name="date" required  lay-verify="required" placeholder="请输入日期X年-X月-X日" autocomplete="off" class="layui-input">
+            <input type="text" name="Tdate" required  lay-verify="required" placeholder="请输入日期如2017-10-01" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">运行天数</label>
+        <div class="layui-input-block">
+            <input type="text" name="runningTime" required  lay-verify="required" placeholder="请输入运行天数" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">本金</label>
+        <div class="layui-input-block">
+            <input type="text" name="principal" required  lay-verify="required" placeholder="请输入本金数" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -93,6 +105,7 @@
 </form>
 </div>
 <script src="/Public/layui/layui.all.js"></script>
+<script src="/Public/js/dialog.js"></script>
 <script>
     //Demo
     layui.use('form', function(){
@@ -107,8 +120,9 @@
             $.ajax( {
                 url:'/index.php?m=Admin&c=Index&a=addData',// 跳转到 action
                 data:{
-                    'assets':data.field.assets,
-                    'date':data.field.date,
+                    'date':data.field.Tdate,
+                    'principal':data.field.principal,
+                    'runningTime':data.field.runningTime,
                     'BTC_price':data.field.btc_price,
                     'BTC_num':data.field.btc_num,
                     'BNB_price':data.field.bnb_price,
@@ -120,15 +134,22 @@
                     'CNY_num':data.field.cny_num
                 },
                 type:'POST',
-//                dataType:'json',
+                dataType:'json',
                 success:function(result) {
-                        console.log(result);
-//                    if(result.status == 0) {
-//                        return dialog.error(result.message);
-//                    }
-//                    if(result.status == 1) {
-//                        return dialog.success(result.message, '/index.php?m=home&c=index');
-//                    }
+//                    console.log(result);
+                    if(result.status == 0) {
+                        return dialog.error(result.message);
+                    }
+                    if(result.status == 1) {
+//                        return dialog.success(result.message, '/index.php?m=admin&c=showData');
+                        layer.open({
+                            content : "添加成功",
+                            icon : 1,
+                            yes : function(){
+                                window.location.href='/index.php?m=admin&c=showData';
+                            },
+                        });
+                    }
                 },
                 error : function() {
                     alert("异常！");
