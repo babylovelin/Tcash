@@ -12,6 +12,9 @@
         .layui-tab-brief>.layui-tab-more li.layui-this:after, .layui-tab-brief>.layui-tab-title .layui-this:after{
             border: none;
         }
+        .layui-table td, .layui-table th{
+            padding: 9px 5px;
+        }
     </style>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
 
@@ -22,8 +25,8 @@
         <div class="layui-col-xs12 layui-col-sm10 layui-col-sm-offset1 layui-col-md10 layui-col-md-offset1">
             <div class="layui-tab layui-tab-brief">
                 <ul class="layui-tab-title">
-                    <li class="layui-this" style="width: 90%;border-bottom: none">Tcash基金每日收益记录</li>
-                    <button>123</button>
+                    <li class="layui-this" style="width: 80%;border-bottom: none">Tcash基金每日收益记录</li>
+                    <button class="layui-btn layui-btn-mini" style="float: right" onclick="goBack()">返回首页</button>
                 </ul>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
@@ -43,7 +46,7 @@
                             <tbody id="table_showdata">
                             <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$ivo): $mod = ($i % 2 );++$i;?><tr>
                                 <td><?php echo ($ivo["date"]); ?></td>
-                                <td><?php echo ($ivo["principal"]); ?></td>
+                                <td><?php echo ($ivo["total"]); ?></td>
                                 <td><button class="layui-btn layui-btn-radius layui-btn-mini xqbtn">点击查看详情</button></td>
                             </tr><?php endforeach; endif; else: echo "" ;endif; ?>
                             </tbody>
@@ -54,11 +57,15 @@
         </div>
     </div>
 </div>
-<div style="width: 300px;margin: 0 auto"><div id="test1" ></div></div>
+<div style="width: 300px;margin: 0 auto"><div id="test1" style="margin: 0 auto"></div></div>
 
 
 <script src="/Public/layui/layui.all.js"></script>
 <script>
+    //返回首页
+    function goBack() {
+        window.location="index.php";
+    }
     //获取数据
     var count=<?php echo $count; ?>;
 
@@ -73,12 +80,13 @@
         layui.use('layer', function(){
             var layer = layui.layer;
             $.post('index.php?m=admin&c=index&a=check', {data_date:data_date}, function(str){
-                console.log(str);
+//                console.log(str);
                 var assets=str.cny_num*str.cny_price+
                         str.usdt_num*str.usdt_price+
-                        str.bnb_num*str.eth_price+
+                        str.bnb_num*str.bnb_price+
                         str.eth_num*str.eth_price+
-                        str.btc_num*str.btc_price;
+                        str.btc_num*str.btc_price+
+                        str.eos_num*str.eos_price;
                 layer.open({
                     skin: 'demo-class',
                     type: 1,
@@ -114,7 +122,13 @@
                     "                                    <td>BNB</td>\n" +
                     "                                    <td>"+str.bnb_num+"</td>\n" +
                     "                                    <td>"+str.bnb_price+"</td>\n" +
-                    "                                    <td>"+str.bnb_num*str.eth_price+"</td>\n" +
+                    "                                    <td>"+str.bnb_num*str.bnb_price+"</td>\n" +
+                    "                                </tr>\n" +
+                    "                                <tr>\n" +
+                    "                                    <td>EOS</td>\n" +
+                    "                                    <td>"+str.eos_num+"</td>\n" +
+                    "                                    <td>"+str.eos_price+"</td>\n" +
+                    "                                    <td>"+str.eos_num*str.eos_price+"</td>\n" +
                     "                                </tr>\n" +
                     "                                <tr>\n" +
                     "                                    <td>USDT</td>\n" +
@@ -164,11 +178,11 @@
                     $.post("/index.php?m=Admin&c=ShowData&a=pageData",{currentPage:obj.curr,pageLimit:obj.limit},function(result){
                         var str="";
 //                        var data=JSON.parse(result);
-                        console.log(result.length);
-                        console.log(result);
+//                        console.log(result.length);
+//                        console.log(result);
                         var assets=[];
                         for(var j=0;j<result.length;j++){
-                            assets[j]=result[j].bnb_num*result[j].bnb_price+result[j].btc_num*result[j].btc_price+result[j].cny_price*result[j].cny_num+result[j].eth_num*result[j].eth_price+result[j].usdt_price*result[j].usdt_num;
+                            assets[j]=result[j].eos_num*result[j].eos_price+result[j].bnb_num*result[j].bnb_price+result[j].btc_num*result[j].btc_price+result[j].cny_price*result[j].cny_num+result[j].eth_num*result[j].eth_price+result[j].usdt_price*result[j].usdt_num;
                         }
                         for(var i=0;i<result.length;i++){
                             str+="<tr><td>"+result[i].date+"</td><td>"+assets[i]+"</td><td><button class='layui-btn layui-btn-radius layui-btn-mini xqbtn'>点击查看详情</button></td></tr>"
@@ -183,9 +197,10 @@
                                     console.log(str);
                                     var assets=str.cny_num*str.cny_price+
                                             str.usdt_num*str.usdt_price+
-                                            str.bnb_num*str.eth_price+
+                                            str.bnb_num*str.bnb_price+
                                             str.eth_num*str.eth_price+
-                                            str.btc_num*str.btc_price;
+                                            str.btc_num*str.btc_price+
+                                            str.eos_num*str.eos_price;
                                     layer.open({
                                         skin: 'demo-class',
                                         type: 1,
@@ -221,7 +236,12 @@
                                         "                                    <td>BNB</td>\n" +
                                         "                                    <td>"+str.bnb_num+"</td>\n" +
                                         "                                    <td>"+str.bnb_price+"</td>\n" +
-                                        "                                    <td>"+str.bnb_num*str.eth_price+"</td>\n" +
+                                        "                                    <td>"+str.bnb_num*str.bnb_price+"</td>\n" +
+                                        "                                </tr>\n" +
+                                        "                                    <td>EOS</td>\n" +
+                                        "                                    <td>"+str.eos_num+"</td>\n" +
+                                        "                                    <td>"+str.eos_price+"</td>\n" +
+                                        "                                    <td>"+str.eos_num*str.eos_price+"</td>\n" +
                                         "                                </tr>\n" +
                                         "                                <tr>\n" +
                                         "                                    <td>USDT</td>\n" +

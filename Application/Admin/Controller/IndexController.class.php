@@ -16,11 +16,11 @@ class IndexController extends Controller {
         $this->display();
     }
     public function addData(){
-        if($_POST['date']!=null&&$_POST['principal']!=null&&$_POST['runningTime']!=null&&
-            $_POST['BTC_num']!=null&&$_POST['BTC_price']!=null&&$_POST['BNB_price']&&
-            $_POST['BNB_num']!=null&&$_POST['ETH_price']!=null&&$_POST['ETH_num']!=null
-            &&$_POST['USDT_price']!=null&&$_POST['USDT_num']!=null&&$_POST['CNY_num']!=null
-        ){
+//        if($_POST['date']!=null&&$_POST['principal']!=null&&$_POST['runningTime']!=null&&
+//            $_POST['BTC_num']!=null&&$_POST['BTC_price']!=null&&$_POST['BNB_price']&&
+//            $_POST['BNB_num']!=null&&$_POST['ETH_price']!=null&&$_POST['ETH_num']!=null
+//            &&$_POST['USDT_price']!=null&&$_POST['USDT_num']!=null&&$_POST['CNY_num']!=null
+//        ){
             $User=M("assets");
             $data['date']=$_POST['date'];
             $data['createTime']=time();
@@ -35,12 +35,13 @@ class IndexController extends Controller {
             $data['USDT_price']=$_POST['USDT_price'];
             $data['USDT_num']=$_POST['USDT_num'];
             $data['CNY_num']=$_POST['CNY_num'];
+            $data['total']=$_POST['total'];
             $User->add($data);
             return show(1,"添加成功");
-        }
-        else{
-            return show(0,"添加失败");
-        }
+//        }
+//        else{
+//            return show(0,"添加失败");
+//        }
         
     }
 }

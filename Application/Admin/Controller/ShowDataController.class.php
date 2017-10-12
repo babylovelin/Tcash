@@ -19,5 +19,10 @@ class ShowDataController extends Controller
         $list = $User->where()->order("createTime desc")->limit(($_POST['currentPage']-1)*$_POST['pageLimit'],$_POST['pageLimit'])->select();
         $this->ajaxReturn($list);
     }
+//    public function getApidata(){
+//        $url="https://www.binance.com/api/v1/ticker/allPrices";
+//        $data=file_get_contents($url);
+//        echo $data;
+//    }
 }
 ?>

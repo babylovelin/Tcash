@@ -43,6 +43,12 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">总资产</label>
+        <div class="layui-input-block">
+            <input type="text" name="total" required  lay-verify="required" placeholder="请输入本金数" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">BTC数量</label>
         <div class="layui-input-block">
             <input type="text" name="btc_num" required  lay-verify="required" placeholder="请输入BTC数量" autocomplete="off" class="layui-input">
@@ -131,7 +137,8 @@
                     'ETH_num':data.field.eth_num,
                     'USDT_price':data.field.usdt_price,
                     'USDT_num':data.field.usdt_num,
-                    'CNY_num':data.field.cny_num
+                    'CNY_num':data.field.cny_num,
+                    'total':data.field.total
                 },
                 type:'POST',
                 dataType:'json',
