@@ -4007,3 +4007,34 @@ INFO: [ app_begin ] --END-- [ RunTime:0.000432s ]
 SQL: SHOW COLUMNS FROM `tcash_assets` [ RunTime:0.0007s ]
 SQL: SELECT * FROM `tcash_assets` WHERE `date` LIKE '2017-10-03' LIMIT 1   [ RunTime:0.0003s ]
 
+[ 2017-10-12T18:28:09+08:00 ] 60.29.18.51 /index.php?m=admin&c=showData
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000401s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000439s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000484s ]
+SQL: SHOW COLUMNS FROM `tcash_assets` [ RunTime:0.0015s ]
+NOTIC: [2] Missing argument 1 for Think\Model::where(), called in /home/wwwroot/tcash.gcan.top/Application/Admin/Controller/ShowDataController.class.php on line 9 and defined /home/wwwroot/tcash.gcan.top/ThinkPHP/Library/Think/Model.class.php 第 1797 行.
+NOTIC: [8] Undefined variable: where /home/wwwroot/tcash.gcan.top/ThinkPHP/Library/Think/Model.class.php 第 1805 行.
+NOTIC: [8] Undefined variable: where /home/wwwroot/tcash.gcan.top/ThinkPHP/Library/Think/Model.class.php 第 1808 行.
+NOTIC: [8] Undefined variable: where /home/wwwroot/tcash.gcan.top/ThinkPHP/Library/Think/Model.class.php 第 1816 行.
+SQL: SELECT * FROM `tcash_assets` ORDER BY createTime desc LIMIT 8   [ RunTime:0.0006s ]
+NOTIC: [2] Missing argument 1 for Think\Model::where(), called in /home/wwwroot/tcash.gcan.top/Application/Admin/Controller/ShowDataController.class.php on line 10 and defined /home/wwwroot/tcash.gcan.top/ThinkPHP/Library/Think/Model.class.php 第 1797 行.
+NOTIC: [8] Undefined variable: where /home/wwwroot/tcash.gcan.top/ThinkPHP/Library/Think/Model.class.php 第 1805 行.
+NOTIC: [8] Undefined variable: where /home/wwwroot/tcash.gcan.top/ThinkPHP/Library/Think/Model.class.php 第 1808 行.
+NOTIC: [8] Undefined variable: where /home/wwwroot/tcash.gcan.top/ThinkPHP/Library/Think/Model.class.php 第 1816 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `tcash_assets` LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000091s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000132s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.008792s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.008835s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000230s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000263s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000475s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000511s ]
+
