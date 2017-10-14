@@ -18,9 +18,9 @@
 <body>
 <div id="main" style="width:100%;"></div>
 <p>Tcash基金运行第 <b><?php echo ($data["runningtime"]); ?></b> 天</p>
-<p id="date">2017-10-12</p>
+<p id="date"><?php echo ($data["date"]); ?></p>
 <p>总收益 <b id="rateOfReturn"></b>%</p>
-<p><b id="cnyReturn">200000.00(CNY)</b>(CNY)</p>
+<p><b id="cnyReturn"></b>(CNY)</p>
 <div style="width: 60px;margin: 0 auto"><button class="layui-btn layui-btn-radius layui-btn-small" style="margin-left: -5px" onclick="toHistory()">历史收益</button></div>
 
 <script src="/Public/js/echarts.js"></script>
@@ -75,17 +75,17 @@
     for(var i=0;i<toCNY.length;i++){
         assets0=assets0+toCNY[i];
     }
-    assets0=parseFloat(assets0)+parseFloat(number1[1]);
-    console.log(assets0);
+    assets0=(parseFloat(assets0)+parseFloat(number1[1])).toFixed(2);
+//    console.log(assets0);
     var assets ="总资产："+assets0;
     //所有货币兑换成人民币
     var arr=[number1[0]*USDT,number1[1]];
     var allToCNY=toCNY.concat(arr);
 
     //收益CNY  总资产-成本
-    var cnyReturn=assets0-mydata.principal;
+    var cnyReturn=(assets0-mydata.principal).toFixed(2);
     //收益率  （总资产-本金）/本金
-    var rateOfReturn=(assets0-mydata.principal)/mydata.principal*100;
+    var rateOfReturn=((assets0-mydata.principal)/mydata.principal*100).toFixed(2);
     //获取今天的日期
     var today=new Date();
     var year=today.getFullYear();
@@ -100,8 +100,8 @@
 
     option = {
         title : {
-            text: 'Tcash基金',
-            subtext:assets,
+            text: assets,
+            subtext:'Tcash基金',
             textStyle:{
                 fontSize:25,
             },

@@ -4,7 +4,7 @@ use Think\Controller;
 class LoginController extends Controller {
     public function index(){
         if(session('adminUser')){
-            redirect('index.php?m=Home&c=Index');
+            redirect('index.php?m=Admin&c=ShowData&a=manage');
         }
         $this->display();
     }

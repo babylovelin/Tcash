@@ -32,6 +32,8 @@ class IndexController extends Controller {
             $data['BNB_num']=$_POST['BNB_num'];
             $data['ETH_price']=$_POST['ETH_price'];
             $data['ETH_num']=$_POST['ETH_num'];
+            $data['EOS_price']=$_POST['EOS_price'];
+            $data['EOS_num']=$_POST['EOS_num'];
             $data['USDT_price']=$_POST['USDT_price'];
             $data['USDT_num']=$_POST['USDT_num'];
             $data['CNY_num']=$_POST['CNY_num'];
